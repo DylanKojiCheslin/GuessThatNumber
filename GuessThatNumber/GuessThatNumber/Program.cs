@@ -11,41 +11,72 @@ namespace GuessThatNumber
         static void stateInstructions() 
         {
             Console.WriteLine("if you want to play type a number between 1 and 100 and hit enter.");
+            Console.WriteLine("If you guess right you win.");
+            Console.WriteLine("or if you wannt to quit type \"I am a coward \"");
             Console.WriteLine();
         }
-        static void game() 
+        static bool game()
         {
             int numAttempts = 0;
             stateInstructions();
-
-            //gets input
-            string input = Console.ReadLine();
-            //if statment does you want to play
-            Console.WriteLine("if you wannt to quit type \"I am a coward \"");
-            if (input.ToLower() == "i am a coward")
+            var r = new Random();
+            int anwser = r.Next(1, 101);
+            bool hasQuit = false;
+            while(!hasQuit)
             {
-
+                //gets input
+                string input = Console.ReadLine();
+                if (input.ToLower() == "i am a coward")
+                {
+                    //elseif giberish restate instruction
+                    //if yes then game on
+                    hasQuit = true;
+                    break;
+                }
+                else if (input=="")//
+                {
+                    continue;
+                }
+                //need to prevent string input
+                /*else
+                {
+                    Console.WriteLine("read the instructions");
+                    continue;
+                }*/
+                int numGuess = Convert.ToInt32(input);
+                numAttempts++;
+                //if statment does you want to play
+                
+            
+                if (numGuess == anwser)
+                {
+                    Console.WriteLine("You are the winner! Good Job!");
+                    Console.WriteLine("It only took "+numAttempts+" trys");
+                    break;
+                }
+                else if (numGuess > anwser)
+                {
+                    Console.WriteLine("your guess is too high");
+                }
+                else if (numGuess < anwser)
+                {
+                    Console.WriteLine("your guess is too low");
+                }
+                else
+                {
+                    Console.WriteLine("read the instructions");
+                }
             }
-            //elseif giberish restate instruction
-            //elseif no then Application.Exit();
-            //if yes then game on
-            //
+            return hasQuit;
         }
         static void Main(string[] args)
         {
-            bool wants = true;
+            bool done = false;
             //while loop calling game
-            while (wants = true)
+            while (done == false)
             {
-                game();
+                done = game();
             }
-            //state instructions
-
-            
-
-
-
-            Console.ReadKey();
         }
     }
 }
